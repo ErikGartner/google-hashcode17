@@ -27,5 +27,13 @@ public class Endpoint {
         requests.add(r);
     }
 
+    public boolean isCached(Video video){
+        for(Cache ca : cacheLatency.keySet()){
+            if(ca.videos.contains(video)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
