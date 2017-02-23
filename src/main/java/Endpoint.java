@@ -18,7 +18,7 @@ public class Endpoint {
         this.latency = latency;
         requests = new LinkedList<Request>();
         for(Cache c: cacheLatency.keySet()){
-            cacheGains.put(c, cacheLatency.get(c) - latency);
+            cacheGains.put(c, latency - cacheLatency.get(c));
         }
 
     }
