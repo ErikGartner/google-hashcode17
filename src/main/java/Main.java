@@ -42,7 +42,7 @@ public class Main {
                 int cacheLatency = io.getInt();
                 Cache cache = cacheMap.get(cacheId);
                 if(cache == null){
-                    cache = new Cache(size);
+                    cache = new Cache(size, cacheId);
                     cacheMap.put(cacheId, cache);
                 }
                 latencyMap.put(cache, cacheLatency);

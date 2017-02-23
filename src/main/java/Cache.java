@@ -12,9 +12,11 @@ public class Cache {
     public Set<Video> videos = new HashSet<Video>();
     public List<Endpoint> endpoints = new ArrayList<Endpoint>();
     public final int size;
+    public final int id;
 
-    public Cache(int size){
+    public Cache(int size, int cacheId){
         this.size = size;
+        this.id = cacheId;
     }
 
     public int cacheVideo(Video newVideo) {
@@ -28,5 +30,15 @@ public class Cache {
 
     public void addEndpoint(Endpoint e){
         endpoints.add(e);
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(cacheId);
+        for(Video v: videos){
+            sb.append(" " + v.id);
+        }
+        return sb.toString();
     }
 }
