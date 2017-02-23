@@ -60,13 +60,7 @@ public class Main {
 
             requests.add(new Request(videos.get(id), endpoints.get(endpoint), no));
         }
-
-        while (io.hasMoreTokens()) {
-            io.getWord();
-        }
-
-
-
+        
         // Close and flush IO.
         io.close();
     }
