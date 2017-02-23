@@ -10,45 +10,69 @@ public class HeaviestUserStrategy extends Strategy{
 
         for(Cache cache: cacheMap.values()){
 
-            int bestScore = 0;
-            Endpoint bestEndpoint = null;
+//            int bestScore = 0;
+//            Endpoint bestEndpoint = null;
+//            for(Endpoint e: cache.endpoints) {
+//                int score = 0;
+//                for(Request r: e.requests){
+//                    score += r.no * e.latency - e.cacheLatency.get(cache);
+//                }
+//
+//                if(score > bestScore){
+//                    bestEndpoint = e;
+//                }
+//            }
+//
+//            if(bestEndpoint == null){
+//                return;
+//            }
+
+            // Score each endpoint
+            Map<Endpoint,Integer> bestEndpoints = new HashMap<Endpoint, Integer>();
             for(Endpoint e: cache.endpoints) {
                 int score = 0;
                 for(Request r: e.requests){
                     score += r.no * e.latency - e.cacheLatency.get(cache);
                 }
-
-                if(score > bestScore){
-                    bestEndpoint = e;
-                }
+                bestEndpoints.put(e, score);
             }
 
-            if(bestEndpoint == null){
-                return;
-            }
+            // Sort by endpoint score
+            LinkedList<Map.Entry<Endpoint, Integer>> sortedEndpoints = new LinkedList<Map.Entry<Endpoint, Integer>>(bestEndpoints.entrySet());
 
-            Map<Video, Integer> videoUsage = new HashMap<Video,Integer>();
-            for(Request r: bestEndpoint.requests) {
-                if(!videoUsage.containsKey(r.video)){
-                    videoUsage.put(r.video, 0);
+            while(sortedEndpoints.size() > 0){
+
+                // Get the best endpoint
+                Endpoint bestEndpoint = sortedEndpoints.removeLast().getKey();
+
+                Map<Video, Integer> videoUsage = new HashMap<Video,Integer>();
+                for(Request r: bestEndpoint.requests) {
+                    if(!videoUsage.containsKey(r.video)){
+                        videoUsage.put(r.video, 0);
+                    }
+                    int score = videoUsage.get(r.video);
+                    score += r.no;
                 }
-                int score = videoUsage.get(r.video);
-                score += r.no;
 
-            }
+                LinkedList<Map.Entry<Video, Integer>> sortedVideos = new LinkedList<Map.Entry<Video, Integer>>(videoUsage.entrySet());
+                Collections.sort(sortedVideos, new ValueSorter());
 
-            LinkedList<Map.Entry<Video, Integer>> sortedVideos = new LinkedList<Map.Entry<Video, Integer>>(videoUsage.entrySet());
-            Collections.sort(sortedVideos, new ValueSorter());
-
-            int size = 0;
-            while(size < maxSize) {
-                if(sortedVideos.size() == 0){
-                    break;
+                int size = 0;
+                boolean nextCache = false;
+                while(size < maxSize) {
+                    if(sortedVideos.size() == 0){
+                        break;
+                    }
+                    Video v = sortedVideos.removeLast().getKey();
+                    if(size + v.size< maxSize){
+                        cache.cacheVideo(v);
+                    }else{
+                        nextCache = true;
+                        break;
+                    }
                 }
-                Video v = sortedVideos.removeLast().getKey();
-                if(size + v.size< maxSize){
-                    cache.cacheVideo(v);
-                }else{
+
+                if(nextCache){
                     break;
                 }
             }

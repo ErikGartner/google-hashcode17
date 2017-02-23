@@ -7,6 +7,6 @@ import java.util.Map;
  */
 public abstract class Strategy {
 
-    public abstract void apply(Map<Integer, Cache> cacheMap, List<Request> requests, ArrayList<Video> videos, List<Endpoint> endpoints, int i);
+    public abstract void apply(Map<Integer, Cache> cacheMap, List<Request> requests, ArrayList<Video> videos, List<Endpoint> endpoints, int maxSize);
 
 }
