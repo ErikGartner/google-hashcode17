@@ -33,6 +33,6 @@ public class BigRequestsStrategy extends Strategy{
 class BigRequestsComparator implements Comparator<Request>{
 
     public int compare(Request o1, Request o2) {
-        return o1.no * o1.endpoint.meanLatencyGain - o2.no * o2.endpoint.meanLatencyGain;
+        return o1.no * o1.endpoint.maxLatencyGain - o2.no * o2.endpoint.maxLatencyGain;
     }
 }
