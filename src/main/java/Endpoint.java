@@ -11,6 +11,7 @@ public class Endpoint {
     public int latency;
     public Map<Cache, Integer> cacheLatency;
     public int maxLatencyGain = 0;
+    public int meanLatencyGain = 0;
     public Map<Cache, Integer> cacheGains = new HashMap<Cache, Integer>();
     public LinkedList<Request> requests;
 
@@ -18,10 +19,13 @@ public class Endpoint {
         this.cacheLatency = cacheLatency;
         this.latency = latency;
         requests = new LinkedList<Request>();
+        this.maxLatencyGain = 0;
         for(Cache c: cacheLatency.keySet()){
             cacheGains.put(c, latency - cacheLatency.get(c));
-            this.maxLatencyGain = Math.max(latency - cacheLatency.get(c), this.maxLatencyGain);
+            maxLatencyGain = Math.max(latency - cacheLatency.get(c), this.maxLatencyGain);
+            meanLatencyGain += latency - cacheLatency.get(c);
         }
+        meanLatencyGain = (int)Math.round(1.0 * meanLatencyGain / cacheLatency.size());
 
     }
 
