@@ -61,6 +61,9 @@ public class Main {
             requests.add(new Request(videos.get(id), endpoints.get(endpoint), no));
         }
 
+        HeaviestUserStrategy hus = new HeaviestUserStrategy();
+        hus.apply(cacheMap, requests, videos, endpoints, size / 5);
+
         // Close and flush IO.
         io.close();
     }
