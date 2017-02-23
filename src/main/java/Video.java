@@ -1,6 +1,7 @@
 /**
  * Created by erik on 2017-02-23.
  */
+import java.util.Comparator;
 import java.util.LinkedList;
 public class Video {
 
@@ -16,5 +17,12 @@ public class Video {
 
     public void addRequest(Request r){
         requests.add(r);
+    }
+}
+
+class VideoSizeComparator implements Comparator<Video> {
+
+    public int compare(Video o1, Video o2) {
+        return o1.size - o2.size;
     }
 }

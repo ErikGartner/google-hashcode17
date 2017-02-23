@@ -19,13 +19,13 @@ public class Cache {
         this.id = cacheId;
     }
 
-    public int cacheVideo(Video newVideo) {
+    public boolean cacheVideo(Video newVideo) {
         if(videos.contains(newVideo)){
-            return usedMemory;
+            return false;
         }
         videos.add(newVideo);
         usedMemory += newVideo.size;
-        return usedMemory;
+        return true;
     }
 
     public void addEndpoint(Endpoint e){
