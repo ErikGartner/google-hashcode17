@@ -61,8 +61,10 @@ public class Main {
             int id = io.getInt();
             int endpoint = io.getInt();
             int no = io.getInt();
-
-            requests.add(new Request(videos.get(id), endpoints.get(endpoint), no));
+            Request newRequest = new Request(videos.get(id), endpoints.get(endpoint), no);
+            endpoints.get(endpoint).addRequest(newRequest);
+            videos.get(id).addRequest(newRequest);
+            requests.add(newRequest);
         }
 
         HeaviestUserStrategy hus = new HeaviestUserStrategy();
