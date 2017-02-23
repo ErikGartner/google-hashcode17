@@ -8,7 +8,7 @@ import java.util.Set;
  */
 public class Cache {
 
-    public double usedMemory = 0;
+    public int usedMemory = 0;
     public Set<Video> videos = new HashSet<Video>();
     public List<Endpoint> endpoints = new ArrayList<Endpoint>();
     public final int size;
@@ -17,15 +17,12 @@ public class Cache {
         this.size = size;
     }
 
-    public double cacheVideo(Video newVideo) {
-
-        videos.add(newVideo);
-        int totalSize = 0;
-        for (Video v : videos) {
-            totalSize = totalSize + v.size;
+    public int cacheVideo(Video newVideo) {
+        if(videos.contains(newVideo)){
+            return usedMemory;
         }
-
-        usedMemory = totalSize / size;
+        videos.add(newVideo);
+        usedMemory += newVideo.size;
         return usedMemory;
     }
 
