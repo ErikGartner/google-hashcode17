@@ -8,11 +8,23 @@ public class BigRequestsStrategy extends Strategy{
     public void apply(Map<Integer, Cache> cacheMap, List<Request> requests, ArrayList<Video> videos, List<Endpoint> endpoints, int maxSize) {
 
         Collections.sort(requests, new BigRequestsComparator());
-
         for(Request r: requests) {
 
-         //   LinkedList<Map.Entry<Cache, Integer>> bestCache = new LinkedList<Map.Entry<Video, Integer>>(r.endpoint.cacheGains.entrySet());
-            //Collections.sort(sortedVideos, new ValueSorter());
+            if(r.endpoint.isCached(r.video)){
+                continue;
+            }
+
+            LinkedList<Map.Entry<Cache, Integer>> sortedCaches = new LinkedList<Map.Entry<Cache, Integer>>(r.endpoint.cacheGains.entrySet());
+            Collections.sort(sortedCaches, new ValueSorter());
+
+            boolean success = false;
+            for(Map.Entry<Cache, Integer> mec: sortedCaches){
+                if(mec.getKey().cacheVideo(r.video)){
+                    success = true;
+                    break;
+                }
+            }
+
         }
 
     }
@@ -21,6 +33,6 @@ public class BigRequestsStrategy extends Strategy{
 class BigRequestsComparator implements Comparator<Request>{
 
     public int compare(Request o1, Request o2) {
-        return o1.no - o2.no;
+        return o1.no * o1.endpoint.maxLatencyGain - o2.no * o2.endpoint.maxLatencyGain;
     }
 }

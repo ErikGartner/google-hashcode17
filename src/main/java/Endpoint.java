@@ -8,8 +8,9 @@ import java.util.HashMap;
  */
 public class Endpoint {
 
-    public final int latency;
-    public final Map<Cache, Integer> cacheLatency;
+    public int latency;
+    public Map<Cache, Integer> cacheLatency;
+    public int maxLatencyGain = 0;
     public Map<Cache, Integer> cacheGains = new HashMap<Cache, Integer>();
     public LinkedList<Request> requests;
 
@@ -19,6 +20,7 @@ public class Endpoint {
         requests = new LinkedList<Request>();
         for(Cache c: cacheLatency.keySet()){
             cacheGains.put(c, latency - cacheLatency.get(c));
+            this.maxLatencyGain = Math.max(latency - cacheLatency.get(c), this.maxLatencyGain);
         }
 
     }

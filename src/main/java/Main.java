@@ -69,10 +69,12 @@ public class Main {
 
         HeaviestUserStrategy hus = new HeaviestUserStrategy();
         SmallAndUsedStrategy sus = new SmallAndUsedStrategy();
+        BigRequestsStrategy bus = new BigRequestsStrategy();
 
         // always last
-        hus.apply(cacheMap, requests, videos, endpoints, size/2);
-        sus.apply(cacheMap, requests, videos, endpoints, size/2);
+        //hus.apply(cacheMap, requests, videos, endpoints, (int)Math.round(size * 2.0 / 3.0));
+        //sus.apply(cacheMap, requests, videos, endpoints, 0);
+        bus.apply(cacheMap, requests, videos, endpoints, size);
 
 
         StringBuilder sb = new StringBuilder();
