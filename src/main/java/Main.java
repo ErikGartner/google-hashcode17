@@ -70,6 +70,13 @@ public class Main {
         HeaviestUserStrategy hus = new HeaviestUserStrategy();
         hus.apply(cacheMap, requests, videos, endpoints, size);
 
+        StringBuilder sb = new StringBuilder();
+        sb.append(cacheMap.size());
+        for(int newCacheId: cacheMap.keySet()){
+            sb.append("\n");
+            cacheMap.get(newCacheId).toString(sb);
+        }
+        
         // Close and flush IO.
         io.close();
     }

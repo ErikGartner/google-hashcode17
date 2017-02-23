@@ -32,13 +32,11 @@ public class Cache {
         endpoints.add(e);
     }
 
-    @Override
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
+    public StringBuilder toString(StringBuilder sb){
         sb.append(id);
         for(Video v: videos){
             sb.append(" " + v.id);
         }
-        return sb.toString();
+        return sb;
     }
 }
