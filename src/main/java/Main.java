@@ -68,7 +68,7 @@ public class Main {
         }
 
         HeaviestUserStrategy hus = new HeaviestUserStrategy();
-        hus.apply(cacheMap, requests, videos, endpoints, size / 5);
+        hus.apply(cacheMap, requests, videos, endpoints, size);
 
         // Close and flush IO.
         io.close();

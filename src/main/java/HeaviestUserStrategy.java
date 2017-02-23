@@ -42,6 +42,9 @@ public class HeaviestUserStrategy extends Strategy{
 
             int size = 0;
             while(size < maxSize) {
+                if(sortedVideos.size() == 0){
+                    break;
+                }
                 Video v = sortedVideos.removeLast().getKey();
                 if(size + v.size< maxSize){
                     cache.cacheVideo(v);

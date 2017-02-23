@@ -12,7 +12,7 @@ public class SmallAndUsedStrategy extends Strategy {
 
         for(Cache c: cacheMap.values()){
             int index = 0;
-            videos.sort();
+           // videos.sort();
             int myAllocatedMemory = 0;
             while(myAllocatedMemory > i){
                 c.videos.add(videos.get(index));
