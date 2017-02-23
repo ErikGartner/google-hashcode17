@@ -24,12 +24,8 @@ public class SmallAndUsedStrategy extends Strategy {
                         videoUsage.put(r.video, 1.0 / r.video.size);
                     }
                     double score = videoUsage.get(r.video);
-                    score += r.no;
+                    score += r.no*(r.endpoint.latency - r.endpoint.cacheLatency.get(c));
                 }
-            }
-
-            for(Video v: videoUsage.keySet()){
-                videoUsage.put(v, videoUsage.get(v)  * v.size);
             }
 
             LinkedList<Map.Entry<Video, Double>> sortedVideos = new LinkedList<Map.Entry<Video, Double>>(videoUsage.entrySet());

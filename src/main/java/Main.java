@@ -71,8 +71,8 @@ public class Main {
         SmallAndUsedStrategy sus = new SmallAndUsedStrategy();
 
         // always last
-        hus.apply(cacheMap, requests, videos, endpoints, size);
-        sus.apply(cacheMap, requests, videos, endpoints, size);
+        hus.apply(cacheMap, requests, videos, endpoints, size/2);
+        sus.apply(cacheMap, requests, videos, endpoints, size/2);
 
 
         StringBuilder sb = new StringBuilder();

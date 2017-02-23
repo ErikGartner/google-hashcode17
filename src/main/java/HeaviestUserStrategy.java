@@ -50,7 +50,7 @@ public class HeaviestUserStrategy extends Strategy{
                     }
                     Video v = sortedVideos.removeLast().getKey();
                     if(size + v.size< maxSize){
-                        if(cache.cacheVideo(v)) {
+                        if(!bestEndpoint.isCached(v) && cache.cacheVideo(v)) {
                             size += v.size;
                         }
                     }else{
