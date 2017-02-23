@@ -76,7 +76,9 @@ public class Main {
             sb.append("\n");
             cacheMap.get(newCacheId).toString(sb);
         }
-        
+
+        io.print(sb.toString());
+
         // Close and flush IO.
         io.close();
     }

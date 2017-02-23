@@ -10,22 +10,8 @@ public class HeaviestUserStrategy extends Strategy{
 
         for(Cache cache: cacheMap.values()){
 
-//            int bestScore = 0;
-//            Endpoint bestEndpoint = null;
-//            for(Endpoint e: cache.endpoints) {
-//                int score = 0;
-//                for(Request r: e.requests){
-//                    score += r.no * e.latency - e.cacheLatency.get(cache);
-//                }
-//
-//                if(score > bestScore){
-//                    bestEndpoint = e;
-//                }
-//            }
-//
-//            if(bestEndpoint == null){
-//                return;
-//            }
+            int size = 0;
+
 
             // Score each endpoint
             Map<Endpoint,Integer> bestEndpoints = new HashMap<Endpoint, Integer>();
@@ -57,7 +43,6 @@ public class HeaviestUserStrategy extends Strategy{
                 LinkedList<Map.Entry<Video, Integer>> sortedVideos = new LinkedList<Map.Entry<Video, Integer>>(videoUsage.entrySet());
                 Collections.sort(sortedVideos, new ValueSorter());
 
-                int size = 0;
                 boolean nextCache = false;
                 while(size < maxSize) {
                     if(sortedVideos.size() == 0){
@@ -66,6 +51,7 @@ public class HeaviestUserStrategy extends Strategy{
                     Video v = sortedVideos.removeLast().getKey();
                     if(size + v.size< maxSize){
                         cache.cacheVideo(v);
+                        size += v.size;
                     }else{
                         nextCache = true;
                         break;

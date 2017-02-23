@@ -10,7 +10,7 @@ public class SmallAndUsedStrategy extends Strategy {
     public void apply(Map<Integer, Cache> cacheMap, List<Request> requests, ArrayList<Video> videos, List<Endpoint> endpoints, int i) {
         for(Cache c: cacheMap.values()){
             int index = 0;
-            Collections.sort(videos);
+            //Collections.sort(videos);
             int myAllocatedMemory = 0;
             while(myAllocatedMemory < i){
                 c.cacheVideo((videos.get(index)));
