@@ -35,7 +35,7 @@ public class Cache {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append(cacheId);
+        sb.append(id);
         for(Video v: videos){
             sb.append(" " + v.id);
         }
