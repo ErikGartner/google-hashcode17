@@ -18,6 +18,9 @@ public class Cache {
     }
 
     public int cacheVideo(Video newVideo) {
+        if(videos.contains(newVideo)){
+            return usedMemory;
+        }
         videos.add(newVideo);
         usedMemory += newVideo.size;
         return usedMemory;
