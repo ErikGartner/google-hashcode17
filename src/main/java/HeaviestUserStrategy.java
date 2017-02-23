@@ -50,8 +50,9 @@ public class HeaviestUserStrategy extends Strategy{
                     }
                     Video v = sortedVideos.removeLast().getKey();
                     if(size + v.size< maxSize){
-                        cache.cacheVideo(v);
-                        size += v.size;
+                        if(cache.cacheVideo(v)) {
+                            size += v.size;
+                        }
                     }else{
                         nextCache = true;
                         break;
@@ -73,5 +74,12 @@ class ValueSorter<T> implements Comparator<Map.Entry<T, Integer>> {
 
     public int compare(Map.Entry<T, Integer> o1, Map.Entry<T, Integer> o2) {
         return o1.getValue() - o2.getValue();
+    }
+}
+
+class DValueSorter<T> implements Comparator<Map.Entry<T, Double>> {
+
+    public int compare(Map.Entry<T, Double> o1, Map.Entry<T, Double> o2) {
+        return (int)Math.round(o1.getValue() - o2.getValue());
     }
 }
