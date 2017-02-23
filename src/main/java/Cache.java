@@ -6,6 +6,7 @@ import java.util.Set;
  */
 public class Cache {
 
+    public double usedMemory = 0;
     public Set<Video> videos = new HashSet<Video>();
     public final int size;
 
@@ -13,8 +14,15 @@ public class Cache {
         this.size = size;
     }
 
-    public void cacheVideo() {
+    public double cacheVideo(Video newVideo) {
 
+        videos.add(newVideo);
+        int totalSize = 0;
+        for(Video v: videos){
+            totalSize = totalSize + v.size;
+        }
+
+        usedMemory = totalSize/size;
+        return usedMemory;
     }
-
 }
