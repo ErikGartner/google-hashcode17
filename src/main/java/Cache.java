@@ -20,7 +20,7 @@ public class Cache {
     }
 
     public boolean cacheVideo(Video newVideo) {
-        if(videos.contains(newVideo) && usedMemory + newVideo.size <= size){
+        if(videos.contains(newVideo) && usedMemory + newVideo.size > size){
             return false;
         }
         videos.add(newVideo);
