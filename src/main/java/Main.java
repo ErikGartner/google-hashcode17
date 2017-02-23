@@ -48,7 +48,11 @@ public class Main {
                 latencyMap.put(cache, cacheLatency);
             }
 
-            endpoints.add(new Endpoint(latency, latencyMap));
+            Endpoint endpoint = new Endpoint(latency, latencyMap);
+            endpoints.add(endpoint);
+            for(Cache cache: latencyMap.keySet()){
+                cache.addEndpoint(endpoint);
+            }
         }
 
         List<Request> requests = new ArrayList<Request>(r);
