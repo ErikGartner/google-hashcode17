@@ -72,8 +72,8 @@ public class Main {
         BigRequestsStrategy bus = new BigRequestsStrategy();
 
         // always last
-        hus.apply(cacheMap, requests, videos, endpoints, size/4);
-        sus.apply(cacheMap, requests, videos, endpoints, size/10);
+        //hus.apply(cacheMap, requests, videos, endpoints, size/4);
+        //sus.apply(cacheMap, requests, videos, endpoints, size/10);
         bus.apply(cacheMap, requests, videos, endpoints, size);
 
 
